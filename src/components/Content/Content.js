@@ -22,7 +22,7 @@ const Content = (props) => {
     }, 1000);
 
     const getWeatherDetails = (cityId) => {
-        fetch(`http://api.openweathermap.org/data/2.5/forecast?id=${cityId}&appid=ff5d084541aac5b27ef0f46c449da8ca`)
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${cityId}&appid=ff5d084541aac5b27ef0f46c449da8ca`)
             .then(response => {
                 return response.json();
             })

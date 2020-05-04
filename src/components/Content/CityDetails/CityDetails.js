@@ -16,7 +16,7 @@ const CityDetails = (props) => {
         wind: props.weather.list[0].wind.speed,
     };
     return (
-        <div className="city-weather-details col-12">
+        <div className="city-weather-details col-12 mt-3">
             <h2>{details.city}, {details.country}</h2>
             <h4>{getCurrentDate()}</h4>
             <div className="row mt-4">
