@@ -4,7 +4,7 @@ import Content from './components/Content/Content';
 
 const App = (props) => {
     return (
-        <div className="app">
+        <div className="app h-100">
             <Layout>
                 <Content />
             </Layout>

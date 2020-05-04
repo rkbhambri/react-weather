@@ -1,22 +1,27 @@
 import React, { useState } from 'react';
-import { debounce, isObjectEmpty } from '../../helpers/miscellenous';
-// import cityList from '../../city-list.json';
-import { details } from '../../a';
+import { debounce, isObjectEmpty, isEmpty } from '../../helpers/miscellenous';
+import cityList from '../../city-list.json';
+import NoDataFound from '../NoDataFound/NoDataFound';
 import Search from '../Search/Search';
 import CityDetails from './CityDetails/CityDetails';
 
 const Content = (props) => {
-    const cityList = details
 
     const [suggestions, setSuggestions] = useState([]);
-    const [cityDetails, setCityDetails] = useState(details);
+    const [cityDetails, setCityDetails] = useState({});
 
     const searchCity = debounce((value) => {
-        let suggestionsData = cityList.filter((item) => {
-            return item.name.toLowerCase().search(value.toLowerCase()) !== -1;
-        });
+        let suggestionsData = [];
+        if (!isEmpty(value)) {
+            suggestionsData = cityList.filter((item) => {
+                return item.name.toLowerCase().search(value.toLowerCase()) !== -1;
+            });
+        }
+        console.log('==value===', value, suggestionsData);
+
         setSuggestions(suggestionsData.slice(0, 5));
-    }, 100);
+        // !value && setSuggestions([]);
+    }, 1000);
 
     const getWeatherDetails = (cityId) => {
         fetch(`http://api.openweathermap.org/data/2.5/forecast?id=${cityId}&appid=ff5d084541aac5b27ef0f46c449da8ca`)
@@ -45,7 +50,7 @@ const Content = (props) => {
     console.log(cityDetails);
 
     return (
-        <div className="content pt-5 col-md-10 offset-1">
+        <div className="content h-100 pt-5 col-md-10 col-12 offset-md-1 pb-3">
             <div className="search-city col-md-6 offset-md-3">
                 <Search placeholder={'Search City'} search={(value) => searchCity(value)} />
                 {
@@ -53,7 +58,9 @@ const Content = (props) => {
                         return (
                             <div
                                 className="font-weight-bold border-left border-right border-bottom p-3"
-                                onClick={() => getWeatherDetails(item.id)}>
+                                key={item.id}
+                                onClick={() => getWeatherDetails(item.id)}
+                                style={{ color: '#ccc' }}>
                                 {item.name}, {item.country}
                             </div>
                         );
@@ -61,6 +68,7 @@ const Content = (props) => {
                 }
             </div><br /><br />
             {!isObjectEmpty(cityDetails) && <CityDetails weather={cityDetails} />}
+            {isObjectEmpty(cityDetails) && <NoDataFound text="No City Selected. Please select city" />}
         </div>
     );
 };

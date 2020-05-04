@@ -16,41 +16,39 @@ const CityDetails = (props) => {
         wind: props.weather.list[0].wind.speed,
     };
     return (
-        <div className="city-weather-details">
+        <div className="city-weather-details col-12">
             <h2>{details.city}, {details.country}</h2>
-            <h4>{getCurrentDate()}</h4><br />
-            <div className="row mt-2">
-                <div className="col-md-4">
+            <h4>{getCurrentDate()}</h4>
+            <div className="row mt-4">
+                <div className="col-md-4 col-12">
                     <h1>{getTemperatureInCelsius(details.temperature).toFixed()}<sup>o</sup><br /></h1>
                     <h3 className="text-capitalize">{details.clouds}</h3>
                 </div>
-                <div className="col-md-8 weather-details border">
-                    <div className="d-flex justify-content-between">
-                        <h3 className="max-temperature p-4">
+                <div className="col-md-8 col-12 weather-details border">
+                    <div className="row">
+                        <h3 className="max-temperature col-md-4 col-6 mt-3 text-center">
                             {getTemperatureInCelsius(details.maxTemp).toFixed()}<sup>o</sup><br />
                             High
                         </h3>
-                        <h3 className="min-temperature p-4">
+                        <h3 className="min-temperature col-md-4 col-6 mt-3 text-center">
                             {getTemperatureInCelsius(details.minTemp).toFixed()}<sup>o</sup><br />
                             Low
                         </h3>
-                        <h3 className="pressure-temperature p-4">
+                        <h3 className="pressure-temperature col-md-4 col-6 mt-3 text-center">
                             {details.pressure}<br />
                             Pressure
                         </h3>
-                    </div>
-                    <div className="d-flex justify-content-between">
-                        <h3 className="humidity p-4">
+                        <h3 className="humidity col-md-4 col-6 mt-3 text-center">
                             {details.humidity} %<br />
                             Humidity
                         </h3>
-                        <h3 className="sea-level p-4">
+                        <h3 className="sea-level col-md-4 col-6 mt-3 text-center">
                             {details.seaLevel} m<br />
                             Sea Level
                         </h3>
-                        <h3 className="wind p-4">
+                        <h3 className="wind col-md-4 col-6 mt-3 text-center">
                             {details.wind} mph<br />
-                            Pressure
+                            Wind
                         </h3>
                     </div>
                 </div>
